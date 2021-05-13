@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Porter Stemming Algorithm
+""" Porter Stemming Algorithm
 This is the Porter stemming algorithm, ported to Python from the
 version coded up in ANSI C by the author. It may be be regarded
 as canonical, in that it follows the algorithm presented in

@@ -1,5 +1,5 @@
-from eliza.controller.PorterStemmer import PorterStemmer
 from eliza.controller.commands.CommandParser import CommandParser
+from eliza.controller.util.PorterStemmer import PorterStemmer
 
 class Eliza:
     __name = 'Eliza'
