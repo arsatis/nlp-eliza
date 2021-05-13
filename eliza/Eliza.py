@@ -1,24 +1,27 @@
-import random
-
-from eliza.commands.CommandParser import CommandParser
+from eliza.controller.PorterStemmer import PorterStemmer
+from eliza.controller.commands.CommandParser import CommandParser
 
 class Eliza:
     __name = 'Eliza'
-    __inputHeader = 'You: '
-    __responseHeader = __name + ': '
+    __responsePrefix = __name + ': '
+    __inputPrefix = 'You: '
 
     def __init__(self):
-        print(self.__responseHeader + "Hello! I'm " + self.__name + '. How can I help you today?')
+        print(self.__responsePrefix + "Hello! I'm " + self.__name + '. How can I help you today?')
 
     def respond(self, userInput):
-        # TODO: modify this temporary response
-        greetings = {'hi!', 'hello!', 'hey!', 'heyo!', 'sup!', 'yo!'}
-        print(self.__name + ': ' + random.sample(greetings, 1)[0] + '\n')
+        ps = PorterStemmer()
+        arr = []
+        for token in userInput.split():
+            arr += [ps.stem(token)]
+        userInput = ' '.join(map(str, arr)) # user input as a string, after stemming
+        print(self.__responsePrefix + CommandParser.parse(userInput))
+        # 
 
     def run(self):
-        userInput = input(self.__inputHeader).lower()
+        userInput = input(self.__inputPrefix).lower()
         while not (CommandParser.checkIfExit(userInput)):
-            self.respond(input)
-            userInput = input(self.__inputHeader).lower()
+            self.respond(userInput)
+            userInput = input(self.__inputPrefix).lower()
         else:
-            print(self.__name + ': bye!')
+            print(self.__responsePrefix + 'bye!')
