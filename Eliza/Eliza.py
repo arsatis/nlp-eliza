@@ -1,20 +1,23 @@
+from commands.CommandParser import *
 import re
+import random
 
 class Eliza:
     def __init__(self):
-        self.name = "Eliza"
-        print("Hello! I'm " + self.name + ". How can I help you today?")
+        self.name = 'Eliza'
+        print("Hello! I'm " + self.name + '. How can I help you today?')
 
-    def parse(self, userInput):
-        print("hello!")
+    def respond(self, userInput):
+        greetings = {'hi!', 'hello!', 'hey!', 'heyo!', 'sup!', 'yo!'}
+        print(random.sample(greetings, 1)[0] + '\n')
+
+# initialize Eliza
+eliza = Eliza()
 
 # user commands
-eliza = Eliza()
 userInput = input().lower()
-
-while not (re.search("[^A-Za-z]?bye", userInput) 
-        or re.search("exit", userInput)):
-    eliza.parse(input)
+while not (CommandParser.checkIfExit(userInput)):
+    eliza.respond(input)
     userInput = input().lower()
 else:
-    print("bye!")
+    print('bye!')
